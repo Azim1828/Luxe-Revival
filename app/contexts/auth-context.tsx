@@ -2,15 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-
-interface User {
-  id: number
-  name: string
-  email: string
-  token: string
-  phone?: string
-  address?: string
-}
+import { User } from '@/app/types'
 
 interface AuthContextType {
   user: User | null
@@ -43,7 +35,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const login = (userData: User) => {
     setUser(userData)
     localStorage.setItem('userData', JSON.stringify(userData))
-    localStorage.setItem('userToken', userData.token)
+    if (userData.token) {
+      localStorage.setItem('userToken', userData.token)
+    }
   }
 
   const logout = () => {

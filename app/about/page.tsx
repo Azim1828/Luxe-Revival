@@ -30,7 +30,7 @@ export default function AboutPage() {
 
           <div className="space-y-4 text-gray-600">
             <p>
-              Founded in 2024, we've been dedicated to providing our customers with
+              Founded in 2024, we&apos;ve been dedicated to providing our customers with
               the finest selection of footwear from world-renowned brands and emerging
               designers alike.
             </p>

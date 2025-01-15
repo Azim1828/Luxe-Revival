@@ -17,9 +17,11 @@ export default function DashboardPage() {
   }, [user, loading, router])
 
   const handleLogout = async () => {
-    if (user?.token) {
-      await doLogout(user.token)
+    try {
+      await doLogout()
       logout()
+    } catch (error) {
+      console.error('Logout failed:', error)
     }
   }
 

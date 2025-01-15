@@ -2,31 +2,32 @@
 
 import { useEffect, useState } from 'react'
 import ProductCard from './ProductCard'
-
-interface QueryParams {
-  page?: number
-  limit?: number
-  tags?: string[]
-  categories?: string[]
-  sort?: 'price_asc' | 'price_desc' | 'name_asc' | 'name_desc' | 'newest'
-  search?: string
-}
+import { Product } from '@/app/types'
 
 interface ProductGridProps {
-  queryParams?: QueryParams
+  products?: Product[]
+  queryParams?: {
+    page?: number
+    limit?: number
+    tags?: string[]
+    categories?: string[]
+    sort?: string
+    search?: string
+  }
 }
 
-export default function ProductGrid({ queryParams = {} }: ProductGridProps) {
-  const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(true)
+export default function ProductGrid({ products = [], queryParams }: ProductGridProps) {
+  const [items, setItems] = useState<Product[]>(products)
+  const [loading, setLoading] = useState(!!queryParams)
   const [error, setError] = useState('')
 
   useEffect(() => {
     const fetchProducts = async () => {
+      if (!queryParams) return
+
       try {
         // Build query string from params
         const params = new URLSearchParams()
-        
         if (queryParams.page) params.append('page', queryParams.page.toString())
         if (queryParams.limit) params.append('limit', queryParams.limit.toString())
         if (queryParams.tags) params.append('tags', queryParams.tags.join(','))
@@ -41,9 +42,10 @@ export default function ProductGrid({ queryParams = {} }: ProductGridProps) {
         if (!response.ok) throw new Error('Failed to fetch products')
         
         const data = await response.json()
-        setProducts(data.products)
+        setItems(data.products)
       } catch (err) {
         setError('Failed to load products')
+        console.error('Error fetching products:', err)
       } finally {
         setLoading(false)
       }
@@ -54,11 +56,11 @@ export default function ProductGrid({ queryParams = {} }: ProductGridProps) {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {[...Array(queryParams.limit || 8)].map((_, i) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {[...Array(queryParams?.limit || 8)].map((_, i) => (
           <div
             key={i}
-            className="animate-pulse rounded-lg aspect-square"
+            className="animate-pulse bg-gray-200 rounded-lg aspect-square"
           />
         ))}
       </div>
@@ -74,8 +76,8 @@ export default function ProductGrid({ queryParams = {} }: ProductGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {products.map((product) => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {items.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </div>

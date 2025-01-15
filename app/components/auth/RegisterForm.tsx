@@ -23,15 +23,14 @@ export default function RegisterForm() {
     const email = formData.get('email') as string
     const password = formData.get('password') as string
 
-    const result = await doUserRegister({ name, email, password })
-
-    if (result.success) {
-      router.push('/auth?tab=login')
-    } else {
-      setError(result.error)
+    try {
+      const user = await doUserRegister({ name, email, password })
+      router.push('/dashboard')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to register')
+    } finally {
+      setLoading(false)
     }
-
-    setLoading(false)
   }
 
   return (

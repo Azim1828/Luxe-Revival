@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Trash2, ArrowRight } from 'lucide-react'
-import { Input } from '@/components/ui/input'
+
 
 export default function CartPage() {
   const { cart, removeFromCart, updateCartItemQuantity, cartTotal } = useShopping()
@@ -26,7 +26,7 @@ export default function CartPage() {
             Your Cart is Empty
           </h1>
           <p className="mt-4 text-gray-500">
-            Looks like you haven't added anything to your cart yet.
+            Looks like you haven&apos;t added anything to your cart yet.
           </p>
           <Button asChild className="mt-8">
             <Link href="/products">Continue Shopping</Link>

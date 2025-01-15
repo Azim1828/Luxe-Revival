@@ -55,7 +55,7 @@ export default function ContactPage() {
             Contact Us
           </h1>
           <p className="mt-4 text-lg text-gray-600">
-            Have a question or feedback? We'd love to hear from you.
+            Have a question or feedback? We&apos;d love to hear from you.
           </p>
 
           <div className="mt-8 space-y-6">
@@ -105,7 +105,7 @@ export default function ContactPage() {
             {success && (
               <Alert className="border-green-500 text-green-700 bg-green-50">
                 <AlertDescription>
-                  Message sent successfully! We'll get back to you soon.
+                  Message sent successfully! We&apos;ll get back to you soon.
                 </AlertDescription>
               </Alert>
             )}

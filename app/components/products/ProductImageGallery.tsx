@@ -8,7 +8,7 @@ interface ProductImageGalleryProps {
   images: Array<{
     url: string
     alt: string
-    isMain: boolean
+    isMain?: boolean
   }>
 }
 

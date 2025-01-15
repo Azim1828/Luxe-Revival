@@ -1,51 +1,62 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
-import crypto from 'crypto';
+import { generateToken } from '@/lib/auth';
+
+interface User {
+  id: string
+  email: string
+  password: string
+  name: string
+  token?: string
+}
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { email, password } = body;
+    const { email, password } = await request.json()
 
-    // Validate required fields
-    if (!email || !password) {
-      return NextResponse.json(
-        { error: 'Email and password are required' },
-        { status: 400 }
-      );
-    }
+    const usersPath = path.join(process.cwd(), 'data', 'users.json')
+    const usersData = await fs.readFile(usersPath, 'utf-8')
+    const users: User[] = JSON.parse(usersData)
+    
+    const user = users.find(user => user.email === email)
 
-    // Read users file
-    const usersFilePath = path.join(process.cwd(), 'data', 'users.json');
-    const usersData = await fs.readFile(usersFilePath, 'utf-8');
-    const users = JSON.parse(usersData);
-
-    // Find user
-    const user = users.find((u: any) => u.email === email && u.password === password);
-
-    if (!user) {
+    if (!user || user.password !== password) {
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
-      );
+      )
     }
 
-    // Generate token
-    const token = crypto.randomBytes(32).toString('hex');
+    const token = generateToken()
+    const updatedUsers = users.map(u => 
+      u.id === user.id ? { ...u, token } : u
+    )
+
+    await fs.writeFile(usersPath, JSON.stringify(updatedUsers, null, 2))
+
+    // Set cookie
+    const response = NextResponse.json({ 
+      user: { 
+        id: user.id, 
+        email: user.email, 
+        name: user.name 
+      } 
+    })
     
-    // Update user's token
-    user.token = token;
-    await fs.writeFile(usersFilePath, JSON.stringify(users, null, 2));
+    response.cookies.set('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+    })
 
-    // Return user data with token (excluding password)
-    const { password: _, ...userWithoutPassword } = user;
-    return NextResponse.json(userWithoutPassword);
-
+    return response
   } catch (error) {
+    console.error('Login error:', error)
     return NextResponse.json(
-      { error: 'Internal Server Error' },
+      { error: 'Failed to login' },
       { status: 500 }
-    );
+    )
   }
 } 

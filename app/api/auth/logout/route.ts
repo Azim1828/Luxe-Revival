@@ -1,37 +1,40 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
+import { cookies } from 'next/headers';
 
-export async function POST(request: Request) {
+interface User {
+  id: string
+  email: string
+  token?: string
+}
+
+export async function POST() {
   try {
-    const body = await request.json();
-    const { token } = body;
+    const cookieStore = cookies()
+    const token = cookieStore.get('token')
 
-    if (!token) {
-      return NextResponse.json(
-        { error: 'Token is required' },
-        { status: 400 }
-      );
+    if (token) {
+      const usersPath = path.join(process.cwd(), 'data', 'users.json')
+      const usersData = await fs.readFile(usersPath, 'utf-8')
+      const users: User[] = JSON.parse(usersData)
+      
+      const updatedUsers = users.map(user => 
+        user.token === token.value ? { ...user, token: undefined } : user
+      )
+
+      await fs.writeFile(usersPath, JSON.stringify(updatedUsers, null, 2))
     }
 
-    // Read users file
-    const usersFilePath = path.join(process.cwd(), 'data', 'users.json');
-    const usersData = await fs.readFile(usersFilePath, 'utf-8');
-    const users = JSON.parse(usersData);
-
-    // Find user with token and remove it
-    const user = users.find((u: any) => u.token === token);
-    if (user) {
-      user.token = null;
-      await fs.writeFile(usersFilePath, JSON.stringify(users, null, 2));
-    }
-
-    return NextResponse.json({ message: 'Logged out successfully' });
-
+    const response = NextResponse.json({ success: true })
+    response.cookies.delete('token')
+    
+    return response
   } catch (error) {
+    console.error('Logout error:', error)
     return NextResponse.json(
-      { error: 'Internal Server Error' },
+      { error: 'Failed to logout' },
       { status: 500 }
-    );
+    )
   }
 } 

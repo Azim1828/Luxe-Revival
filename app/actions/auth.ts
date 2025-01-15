@@ -20,7 +20,21 @@ interface UpdateUserData {
   phone?: string;
 }
 
-export async function doUserRegister(data: RegisterData) {
+interface User {
+  id: number
+  email: string
+  name: string
+  token?: string
+  [key: string]: unknown
+}
+
+interface AuthError {
+  message: string;
+  code?: string;
+  [key: string]: unknown;
+}
+
+export async function doUserRegister(data: RegisterData): Promise<User> {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
       method: 'POST',
@@ -36,16 +50,14 @@ export async function doUserRegister(data: RegisterData) {
       throw new Error(result.error || 'Registration failed');
     }
 
-    return { success: true, data: result };
-  } catch (error: any) {
-    return {
-      success: false,
-      error: error.message || 'Failed to register user'
-    };
+    return result;
+  } catch (error: unknown) {
+    const err = error as AuthError;
+    throw new Error(err.message || 'Failed to register user');
   }
 }
 
-export async function doUserLogin(data: LoginData) {
+export async function doUserLogin(data: LoginData): Promise<User> {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
       method: 'POST',
@@ -61,41 +73,33 @@ export async function doUserLogin(data: LoginData) {
       throw new Error(result.error || 'Login failed');
     }
 
-    return { success: true, data: result };
-  } catch (error: any) {
-    return {
-      success: false,
-      error: error.message || 'Failed to login'
-    };
+    return result;
+  } catch (error: unknown) {
+    const err = error as AuthError;
+    throw new Error(err.message || 'Failed to login');
   }
 }
 
-export async function doLogout(token: string) {
+export async function doLogout(): Promise<void> {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ token }),
+      body: JSON.stringify({}),
     });
 
-    const result = await response.json();
-
     if (!response.ok) {
-      throw new Error(result.error || 'Logout failed');
+      throw new Error('Logout failed');
     }
-
-    return { success: true, data: result };
-  } catch (error: any) {
-    return {
-      success: false,
-      error: error.message || 'Failed to logout'
-    };
+  } catch (error: unknown) {
+    const err = error as AuthError;
+    throw new Error(err.message || 'Failed to logout');
   }
 }
 
-export async function doUserUpdate(data: UpdateUserData) {
+export async function doUserUpdate(data: UpdateUserData): Promise<User> {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/update`, {
       method: 'PUT',
@@ -111,11 +115,24 @@ export async function doUserUpdate(data: UpdateUserData) {
       throw new Error(result.error || 'Update failed');
     }
 
-    return { success: true, data: result };
-  } catch (error: any) {
-    return {
-      success: false,
-      error: error.message || 'Failed to update user'
-    };
+    return result;
+  } catch (error: unknown) {
+    const err = error as AuthError;
+    throw new Error(err.message || 'Failed to update user');
+  }
+}
+
+export async function getCurrentUser(): Promise<User | null> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/me`);
+    
+    if (!response.ok) {
+      return null;
+    }
+
+    const user = await response.json();
+    return user;
+  } catch (error) {
+    return null;
   }
 } 

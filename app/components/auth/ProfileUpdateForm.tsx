@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label"
 import { doUserUpdate } from '@/app/actions/auth'
 import { Card, CardContent } from "@/components/ui/card"
 import { useAuth } from '@/app/contexts/auth-context'
+import { User } from '@/app/types'
 
 export default function ProfileUpdateForm() {
   const { user, updateUser } = useAuth()
@@ -37,13 +38,12 @@ export default function ProfileUpdateForm() {
       address: formData.get('address') as string,
     }
 
-    const result = await doUserUpdate(updateData)
-
-    if (result.success) {
+    try {
+      const result = await doUserUpdate(updateData)
       setSuccess('Profile updated successfully')
-      updateUser(result.data)
-    } else {
-      setError(result.error)
+      updateUser(result as User)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to update profile')
     }
 
     setLoading(false)

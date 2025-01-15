@@ -17,8 +17,9 @@ import ProductImageGallery from '@/app/components/products/ProductImageGallery'
 import RelatedProducts from '@/app/components/products/RelatedProducts'
 import { useShopping } from '@/app/contexts/shopping-context'
 import { cn } from '@/lib/utils'
+import { Product } from '@/app/types'
 
-interface Product {
+interface ProductDetails {
   id: string
   name: string
   description: string
@@ -28,7 +29,7 @@ interface Product {
   images: Array<{
     url: string
     alt: string
-    isMain: boolean
+    isMain?: boolean
   }>
   size: number[]
   averageRating: number
@@ -51,6 +52,7 @@ export default function ProductPage({
   const [loading, setLoading] = useState(true)
   const [showSizeError, setShowSizeError] = useState(false)
   const { addToCart, addToWishlist, removeFromWishlist, wishlist } = useShopping()
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([])
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -58,9 +60,17 @@ export default function ProductPage({
         const response = await fetch('/api/products')
         if (!response.ok) throw new Error('Failed to fetch product')
         const data = await response.json()
-        const foundProduct = data.products.find((p: Product) => p.slug === params.slug)
+        const foundProduct = data.products.find((product: Product) => product.slug === params.slug)
         if (foundProduct) {
           setProduct(foundProduct)
+          // Set related products here
+          const related = foundProduct.categories?.flatMap((category: { id: string }) => 
+            data.products.filter((p: Product) => 
+              p.id !== foundProduct.id && 
+              p.categories?.some((c: { id: string }) => c.id === category.id)
+            )
+          ) || []
+          setRelatedProducts(related.slice(0, 4))
         }
       } catch (error) {
         console.error('Error fetching product:', error)
@@ -125,11 +135,11 @@ export default function ProductPage({
                     {product.averageRating} ({product.totalReviews} reviews)
                   </span>
                 </div>
-                {product.categories.map((category) => (
+                {product.categories?.map((category) => (
                   <Badge key={category.id} variant="secondary">
                     {category.name}
                   </Badge>
-                ))}
+                )) || []}
               </div>
             </div>
             <div className="text-right">
@@ -221,21 +231,18 @@ export default function ProductPage({
           <div className="mt-8 border-t border-gray-200 pt-8">
             <h3 className="text-sm font-medium text-gray-900">Tags</h3>
             <div className="mt-2 flex flex-wrap gap-2">
-              {product.tags.map((tag) => (
+              {product.tags?.map((tag) => (
                 <Badge key={tag} variant="secondary">
                   {tag}
                 </Badge>
-              ))}
+              )) || []}
             </div>
           </div>
         </div>
       </div>
 
       {/* Related Products */}
-      <RelatedProducts
-        currentProductId={product.id}
-        categoryIds={product.categories.map(c => c.id)}
-      />
+      <RelatedProducts products={relatedProducts} />
     </div>
   )
 } 

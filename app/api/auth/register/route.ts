@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
-import crypto from 'crypto';
 
 interface User {
   id: number;
@@ -11,6 +10,13 @@ interface User {
   token?: string;
   address?: string;
   phone?: string;
+  timestamp: string;
+}
+
+interface UserResponse {
+  id: number;
+  name: string;
+  email: string;
   timestamp: string;
 }
 
@@ -56,10 +62,17 @@ export async function POST(request: Request) {
     await fs.writeFile(usersFilePath, JSON.stringify(users, null, 2));
 
     // Return success response (excluding password)
-    const { password: _, ...userWithoutPassword } = newUser;
-    return NextResponse.json(userWithoutPassword, { status: 201 });
+    const userResponse: UserResponse = {
+      id: newUser.id,
+      name: newUser.name,
+      email: newUser.email,
+      timestamp: newUser.timestamp
+    };
+
+    return NextResponse.json(userResponse, { status: 201 });
 
   } catch (error) {
+    console.error('Registration error:', error);
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }
