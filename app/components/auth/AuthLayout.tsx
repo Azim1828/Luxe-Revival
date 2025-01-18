@@ -6,7 +6,7 @@ import { useState } from "react";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
-enum Tab {
+export enum Tab {
   LOGIN = "login",
   REGISTER = "register",
 }
@@ -94,5 +94,3 @@ export default function AuthLayout({
     </div>
   );
 }
-
-export { Tab };
