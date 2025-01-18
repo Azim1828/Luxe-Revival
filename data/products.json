@@ -28,8 +28,8 @@
 
       "tags": ["new", "featured", "trending"],
 
-      "basePrice": 199.99,
-      "compareAtPrice": 249.99,
+      "basePrice": 1099.99,
+      "compareAtPrice": 1249.99,
       "taxable": true,
 
       "status": "active",
@@ -86,8 +86,8 @@
 
       "tags": ["bestSeller", "featured"],
 
-      "basePrice": 159.99,
-      "compareAtPrice": 189.99,
+      "basePrice": 1059.99,
+      "compareAtPrice": 1289.99,
       "taxable": true,
 
       "status": "active",
@@ -141,8 +141,8 @@
 
       "tags": ["premium", "featured"],
 
-      "basePrice": 249.99,
-      "compareAtPrice": 279.99,
+      "basePrice": 1249.99,
+      "compareAtPrice": 1279.99,
       "taxable": true,
 
       "status": "active",
@@ -196,8 +196,8 @@
 
       "tags": ["new", "trending"],
 
-      "basePrice": 129.99,
-      "compareAtPrice": 149.99,
+      "basePrice": 1029.99,
+      "compareAtPrice": 1149.99,
       "taxable": true,
 
       "status": "active",
@@ -251,8 +251,8 @@
 
       "tags": ["featured", "bestSeller"],
 
-      "basePrice": 169.99,
-      "compareAtPrice": 199.99,
+      "basePrice": 969.99,
+      "compareAtPrice": 1099.99,
       "taxable": true,
 
       "status": "active",
@@ -306,8 +306,8 @@
 
       "tags": ["premium", "featured"],
 
-      "basePrice": 189.99,
-      "compareAtPrice": 219.99,
+      "basePrice": 989.99,
+      "compareAtPrice": 1019.99,
       "taxable": true,
 
       "status": "active",
@@ -361,8 +361,8 @@
 
       "tags": ["stability", "featured"],
 
-      "basePrice": 149.99,
-      "compareAtPrice": 179.99,
+      "basePrice": 1049.99,
+      "compareAtPrice": 1179.99,
       "taxable": true,
 
       "status": "active",
@@ -416,8 +416,8 @@
 
       "tags": ["premium", "featured", "new"],
 
-      "basePrice": 209.99,
-      "compareAtPrice": 239.99,
+      "basePrice": 999.99,
+      "compareAtPrice": 1039.99,
       "taxable": true,
 
       "status": "active",
@@ -472,8 +472,8 @@
 
       "tags": ["premium", "bestseller", "formal"],
 
-      "basePrice": 395.0,
-      "compareAtPrice": 450.0,
+      "basePrice": 995.0,
+      "compareAtPrice": 1250.0,
       "taxable": true,
 
       "status": "active",
@@ -522,8 +522,8 @@
 
       "tags": ["classic", "bestseller", "casual"],
 
-      "basePrice": 69.99,
-      "compareAtPrice": 79.99,
+      "basePrice": 969.99,
+      "compareAtPrice": 1079.99,
       "taxable": true,
 
       "status": "active",
@@ -577,8 +577,8 @@
 
       "tags": ["premium", "new", "soccer"],
 
-      "basePrice": 279.99,
-      "compareAtPrice": 299.99,
+      "basePrice": 1279.99,
+      "compareAtPrice": 1299.99,
       "taxable": true,
 
       "status": "active",
@@ -632,8 +632,8 @@
 
       "tags": ["classic", "bestseller", "winter"],
 
-      "basePrice": 198.0,
-      "compareAtPrice": 219.99,
+      "basePrice": 1098.0,
+      "compareAtPrice": 1219.99,
       "taxable": true,
 
       "status": "active",
@@ -684,8 +684,8 @@
 
       "tags": ["premium", "basketball", "featured"],
 
-      "basePrice": 159.99,
-      "compareAtPrice": 179.99,
+      "basePrice": 1059.99,
+      "compareAtPrice": 1179.99,
       "taxable": true,
 
       "status": "active",
@@ -739,8 +739,8 @@
 
       "tags": ["classic", "comfort", "summer"],
 
-      "basePrice": 135.0,
-      "compareAtPrice": 149.99,
+      "basePrice": 1135.0,
+      "compareAtPrice": 1249.99,
       "taxable": true,
 
       "status": "active",
@@ -779,23 +779,23 @@
 
       "categories": [
         {
-            "id": "cat_007",
-            "name": "Soccer",
-            "slug": "soccer"
-          },
-          {
-            "id": "cat_008",
-            "name": "Cleats",
-            "slug": "cleats"
-          }
+          "id": "cat_007",
+          "name": "Soccer",
+          "slug": "soccer"
+        },
+        {
+          "id": "cat_008",
+          "name": "Cleats",
+          "slug": "cleats"
+        }
       ],
 
       "size": [6, 7, 8, 9, 10, 11, 12, 13],
 
       "tags": ["classic", "trending", "fashion"],
 
-      "basePrice": 170.0,
-      "compareAtPrice": 189.99,
+      "basePrice": 1170.0,
+      "compareAtPrice": 1289.99,
       "taxable": true,
 
       "status": "active",
@@ -832,33 +832,34 @@
       "slug": "running-shoes"
     },
     {
-        "id": "cat_003",
-        "name": "Formal Shoes",
-        "slug": "formal-shoes"
-      },
-      {
-        "id": "cat_004",
-        "name": "Business",
-        "slug": "business"
-      }, {
-        "id": "cat_005",
-        "name": "Skateboarding",
-        "slug": "skateboarding"
-      },
-      {
-        "id": "cat_006",
-        "name": "Casual",
-        "slug": "casual"
-      },
+      "id": "cat_003",
+      "name": "Formal Shoes",
+      "slug": "formal-shoes"
+    },
     {
-        "id": "cat_007",
-        "name": "Soccer",
-        "slug": "soccer"
-      },
-      {
-        "id": "cat_008",
-        "name": "Cleats",
-        "slug": "cleats"
-      }
+      "id": "cat_004",
+      "name": "Business",
+      "slug": "business"
+    },
+    {
+      "id": "cat_005",
+      "name": "Skateboarding",
+      "slug": "skateboarding"
+    },
+    {
+      "id": "cat_006",
+      "name": "Casual",
+      "slug": "casual"
+    },
+    {
+      "id": "cat_007",
+      "name": "Soccer",
+      "slug": "soccer"
+    },
+    {
+      "id": "cat_008",
+      "name": "Cleats",
+      "slug": "cleats"
+    }
   ]
 }
