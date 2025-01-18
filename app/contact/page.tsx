@@ -1,50 +1,50 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Mail, Phone, MapPin } from 'lucide-react'
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Mail, MapPin, Phone } from "lucide-react";
+import { useState } from "react";
 
 export default function ContactPage() {
-  const [loading, setLoading] = useState(false)
-  const [success, setSuccess] = useState(false)
-  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
-    setSuccess(false)
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccess(false);
 
-    const formData = new FormData(e.currentTarget)
+    const formData = new FormData(e.currentTarget);
     const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      subject: formData.get('subject'),
-      message: formData.get('message'),
-    }
+      name: formData.get("name"),
+      email: formData.get("email"),
+      subject: formData.get("subject"),
+      message: formData.get("message"),
+    };
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
+      const response = await fetch("/api/contact", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      })
+      });
 
-      if (!response.ok) throw new Error('Failed to send message')
+      if (!response.ok) throw new Error("Failed to send message");
 
-      setSuccess(true)
-      e.currentTarget.reset()
+      setSuccess(true);
+      e.currentTarget.reset();
     } catch (err) {
-      setError('Failed to send message. Please try again.')
+      setError("Failed to send message. Please try again.");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
@@ -65,7 +65,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="font-medium text-gray-900">Email</h3>
-                <p className="text-gray-600">support@example.com</p>
+                <p className="text-gray-600">mazstiffler95773@outlook.com</p>
               </div>
             </div>
 
@@ -75,7 +75,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="font-medium text-gray-900">Phone</h3>
-                <p className="text-gray-600">+1 (555) 123-4567</p>
+                <p className="text-gray-600">+86 16733707471</p>
               </div>
             </div>
 
@@ -86,8 +86,13 @@ export default function ContactPage() {
               <div>
                 <h3 className="font-medium text-gray-900">Address</h3>
                 <p className="text-gray-600">
-                  123 Store Street<br />
-                  City, State 12345
+                  NanJingXianShuYangZhenShangBan
+                  <br />
+                  CunTianLiaoKeng94 1Hao
+                  <br />
+                  FuJianSheng, 363600
+                  <br />
+                  China
                 </p>
               </div>
             </div>
@@ -111,19 +116,20 @@ export default function ContactPage() {
             )}
 
             <div className="space-y-2">
-              <label htmlFor="name" className="text-sm font-medium text-gray-900">
+              <label
+                htmlFor="name"
+                className="text-sm font-medium text-gray-900"
+              >
                 Name
               </label>
-              <Input
-                id="name"
-                name="name"
-                required
-                placeholder="Your name"
-              />
+              <Input id="name" name="name" required placeholder="Your name" />
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium text-gray-900">
+              <label
+                htmlFor="email"
+                className="text-sm font-medium text-gray-900"
+              >
                 Email
               </label>
               <Input
@@ -136,7 +142,10 @@ export default function ContactPage() {
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="subject" className="text-sm font-medium text-gray-900">
+              <label
+                htmlFor="subject"
+                className="text-sm font-medium text-gray-900"
+              >
                 Subject
               </label>
               <Input
@@ -148,7 +157,10 @@ export default function ContactPage() {
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="message" className="text-sm font-medium text-gray-900">
+              <label
+                htmlFor="message"
+                className="text-sm font-medium text-gray-900"
+              >
                 Message
               </label>
               <Textarea
@@ -161,11 +173,11 @@ export default function ContactPage() {
             </div>
 
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Sending...' : 'Send Message'}
+              {loading ? "Sending..." : "Send Message"}
             </Button>
           </form>
         </div>
       </div>
     </div>
-  )
-} 
+  );
+}

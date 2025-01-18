@@ -115,12 +115,16 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3 text-sm text-gray-600">
               <li>
-                123 Store Street
+                NanJingXianShuYangZhenShangBan
                 <br />
-                City, State 12345
+                CunTianLiaoKeng94 1Hao
+                <br />
+                FuJianSheng, 363600
+                <br />
+                China
               </li>
-              <li>Phone: +1 (555) 123-4567</li>
-              <li>Email: support@example.com</li>
+              <li>Phone: +86 16733707471</li>
+              <li>Email: mazstiffler95773@outlook.com</li>
             </ul>
           </div>
         </div>
