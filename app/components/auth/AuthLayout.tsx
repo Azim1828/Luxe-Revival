@@ -1,32 +1,37 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Image from 'next/image'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Image from "next/image";
+import { useState } from "react";
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
 
 enum Tab {
-  LOGIN = 'login',
-  REGISTER = 'register'
+  LOGIN = "login",
+  REGISTER = "register",
 }
 
 interface AuthLayoutProps {
-  children: React.ReactNode
-  defaultTab?: Tab
+  children: React.ReactNode;
+  defaultTab?: Tab;
 }
 
-export default function AuthLayout({ children, defaultTab = Tab.LOGIN }: AuthLayoutProps) {
-  const [activeTab, setActiveTab] = useState<Tab>(defaultTab)
+export default function AuthLayout({
+  children,
+  defaultTab = Tab.LOGIN,
+}: AuthLayoutProps) {
+  const [activeTab, setActiveTab] = useState<Tab>(defaultTab);
 
   const handleTabChange = (value: string) => {
-    setActiveTab(value as Tab)
-  }
+    setActiveTab(value as Tab);
+  };
 
   return (
     <div className="container relative min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
       <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
         <div className="absolute inset-0">
           <Image
-            src="/auth-bg.webp"
+            src="/auth-bg.jpg"
             alt="Authentication background"
             fill
             className="object-cover opacity-90"
@@ -45,12 +50,13 @@ export default function AuthLayout({ children, defaultTab = Tab.LOGIN }: AuthLay
           >
             <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
           </svg>
-          EStore
+          Luxe Revival
         </div>
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
             <p className="text-lg">
-              &ldquo;This store has transformed how I shop for shoes. The quality and service are unmatched!&rdquo;
+              &ldquo;This store has transformed how I shop for shoes. The
+              quality and service are unmatched!&rdquo;
             </p>
             <footer className="text-sm">Sofia Davis</footer>
           </blockquote>
@@ -60,13 +66,14 @@ export default function AuthLayout({ children, defaultTab = Tab.LOGIN }: AuthLay
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
-              Welcome to EStore
+              Welcome to Luxe Revival
             </h1>
             <p className="text-sm text-muted-foreground">
               Enter your credentials to continue
             </p>
           </div>
           <Tabs
+            defaultValue={defaultTab}
             value={activeTab}
             onValueChange={handleTabChange}
             className="w-full"
@@ -76,16 +83,16 @@ export default function AuthLayout({ children, defaultTab = Tab.LOGIN }: AuthLay
               <TabsTrigger value={Tab.REGISTER}>Register</TabsTrigger>
             </TabsList>
             <TabsContent value={Tab.LOGIN}>
-              {activeTab === Tab.LOGIN && children}
+              <LoginForm />
             </TabsContent>
             <TabsContent value={Tab.REGISTER}>
-              {activeTab === Tab.REGISTER && children}
+              <RegisterForm />
             </TabsContent>
           </Tabs>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export { Tab }
+export { Tab };

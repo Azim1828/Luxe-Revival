@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import { Facebook, Instagram, Twitter } from 'lucide-react'
+import { Facebook, Instagram, Twitter } from "lucide-react";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -8,9 +8,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">EStore</h3>
+            <h3 className="text-lg font-semibold">Luxe Revival</h3>
             <p className="text-sm text-gray-600">
-              Your destination for premium footwear. Quality meets style in every step.
+              Your destination for premium footwear. Quality meets style in
+              every step.
             </p>
             <div className="flex space-x-4">
               <Link href="#" className="text-gray-400 hover:text-gray-500">
@@ -27,25 +28,39 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 mb-4">Quick Links</h3>
+            <h3 className="text-sm font-semibold text-gray-900 mb-4">
+              Quick Links
+            </h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/products" className="text-sm text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/products"
+                  className="text-sm text-gray-600 hover:text-gray-900"
+                >
                   All Products
                 </Link>
               </li>
               <li>
-                <Link href="/categories" className="text-sm text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/categories"
+                  className="text-sm text-gray-600 hover:text-gray-900"
+                >
                   Categories
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-sm text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/about"
+                  className="text-sm text-gray-600 hover:text-gray-900"
+                >
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-sm text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/contact"
+                  className="text-sm text-gray-600 hover:text-gray-900"
+                >
                   Contact
                 </Link>
               </li>
@@ -54,25 +69,39 @@ export default function Footer() {
 
           {/* Categories */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 mb-4">Categories</h3>
+            <h3 className="text-sm font-semibold text-gray-900 mb-4">
+              Categories
+            </h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/categories/running-shoes" className="text-sm text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/categories/running-shoes"
+                  className="text-sm text-gray-600 hover:text-gray-900"
+                >
                   Running Shoes
                 </Link>
               </li>
               <li>
-                <Link href="/categories/casual" className="text-sm text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/categories/casual"
+                  className="text-sm text-gray-600 hover:text-gray-900"
+                >
                   Casual Shoes
                 </Link>
               </li>
               <li>
-                <Link href="/categories/formal-shoes" className="text-sm text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/categories/formal-shoes"
+                  className="text-sm text-gray-600 hover:text-gray-900"
+                >
                   Formal Shoes
                 </Link>
               </li>
               <li>
-                <Link href="/categories/sports" className="text-sm text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/categories/sports"
+                  className="text-sm text-gray-600 hover:text-gray-900"
+                >
                   Sports Shoes
                 </Link>
               </li>
@@ -81,7 +110,9 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 mb-4">Contact Us</h3>
+            <h3 className="text-sm font-semibold text-gray-900 mb-4">
+              Contact Us
+            </h3>
             <ul className="space-y-3 text-sm text-gray-600">
               <li>
                 123 Store Street
@@ -98,16 +129,25 @@ export default function Footer() {
         <div className="mt-12 pt-8 border-t border-gray-100">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-gray-600">
-              © {new Date().getFullYear()} EStore. All rights reserved.
+              © {new Date().getFullYear()} Luxe Revival. All rights reserved.
             </p>
             <div className="flex space-x-6">
-              <Link href="/privacy" className="text-sm text-gray-600 hover:text-gray-900">
+              <Link
+                href="/privacy"
+                className="text-sm text-gray-600 hover:text-gray-900"
+              >
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="text-sm text-gray-600 hover:text-gray-900">
+              <Link
+                href="/terms"
+                className="text-sm text-gray-600 hover:text-gray-900"
+              >
                 Terms of Service
               </Link>
-              <Link href="/shipping" className="text-sm text-gray-600 hover:text-gray-900">
+              <Link
+                href="/shipping"
+                className="text-sm text-gray-600 hover:text-gray-900"
+              >
                 Shipping Info
               </Link>
             </div>
@@ -115,5 +155,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
-} 
+  );
+}

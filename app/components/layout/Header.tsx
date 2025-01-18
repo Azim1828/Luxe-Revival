@@ -1,15 +1,15 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { useAuth } from '@/app/contexts/auth-context'
-import { useShopping } from '@/app/contexts/shopping-context'
-import { Button } from '@/components/ui/button'
-import { ShoppingBag, Heart } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
+import { useAuth } from "@/app/contexts/auth-context";
+import { useShopping } from "@/app/contexts/shopping-context";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Heart, ShoppingBag } from "lucide-react";
+import Link from "next/link";
 
 export default function Header() {
-  const { user, logout } = useAuth()
-  const { cartItemsCount, wishlistItemsCount } = useShopping()
+  const { user, logout } = useAuth();
+  const { cartItemsCount, wishlistItemsCount } = useShopping();
 
   return (
     <header className="border-b">
@@ -18,7 +18,7 @@ export default function Header() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="text-xl font-bold">
-              EStore
+              Luxe Revival
             </Link>
           </div>
 
@@ -55,8 +55,8 @@ export default function Header() {
             <Link href="/wishlist" className="relative">
               <Heart className="h-6 w-6 text-gray-400 hover:text-gray-500" />
               {wishlistItemsCount > 0 && (
-                <Badge 
-                  variant="secondary" 
+                <Badge
+                  variant="secondary"
                   className="absolute -top-2 -right-2 min-w-[20px] h-5"
                 >
                   {wishlistItemsCount}
@@ -66,8 +66,8 @@ export default function Header() {
             <Link href="/cart" className="relative">
               <ShoppingBag className="h-6 w-6 text-gray-400 hover:text-gray-500" />
               {cartItemsCount > 0 && (
-                <Badge 
-                  variant="secondary" 
+                <Badge
+                  variant="secondary"
                   className="absolute -top-2 -right-2 min-w-[20px] h-5"
                 >
                   {cartItemsCount}
@@ -87,5 +87,5 @@ export default function Header() {
         </div>
       </div>
     </header>
-  )
-} 
+  );
+}

@@ -1,45 +1,55 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { Heart } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useShopping } from '@/app/contexts/shopping-context'
-import { cn } from '@/lib/utils'
+import { useShopping } from "@/app/contexts/shopping-context";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Heart } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 interface ProductCardProps {
   product: {
-    id: string
-    name: string
-    slug: string
-    basePrice: number
+    id: string;
+    name: string;
+    slug: string;
+    basePrice: number;
     images: Array<{
-      url: string
-      alt: string
-    }>
-    [key: string]: any
-  }
+      url: string;
+      alt: string;
+    }>;
+    [key: string]: any;
+  };
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const { addToWishlist, removeFromWishlist, wishlist, addToCart } = useShopping()
-  const isInWishlist = wishlist.some(item => item.id === product.id)
+  const [isLoading, setIsLoading] = useState(false);
+  const { addToWishlist, removeFromWishlist, wishlist, addToCart } =
+    useShopping();
+  const isInWishlist = wishlist.some((item) => item.id === product.id);
 
   const toggleWishlist = (e: React.MouseEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (isInWishlist) {
-      removeFromWishlist(product.id)
+      removeFromWishlist(product.id);
     } else {
-      addToWishlist(product)
+      addToWishlist(product);
     }
-  }
+  };
 
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault()
-    // Default to smallest size available
-    const defaultSize = product.size[0]
-    addToCart(product, defaultSize)
-  }
+  const handleAddToCart = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      // Default to smallest size available
+      const defaultSize = product.size[0];
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // 1 second delay
+      addToCart(product, defaultSize);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Link href={`/products/${product.slug}`} className="group">
@@ -66,15 +76,16 @@ export default function ProductCard({ product }: ProductCardProps) {
         <h3 className="text-sm font-medium text-gray-900">{product.name}</h3>
         <p className="text-sm text-gray-500">${product.basePrice}</p>
         <div className="flex gap-2">
-          <Button 
+          <Button
             onClick={handleAddToCart}
-            size="sm" 
+            size="sm"
             className="w-full"
+            disabled={isLoading}
           >
-            Add to Cart
+            {isLoading ? "Adding..." : "Add to Cart"}
           </Button>
         </div>
       </div>
     </Link>
-  )
-} 
+  );
+}
